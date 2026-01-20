@@ -27,12 +27,17 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * @author Vitaliy Fedoriv
  *
  */
 
 public class BindingErrorsResponse {
+    private static final Logger log = LoggerFactory.getLogger(BindingErrorsResponse.class);
 
     public BindingErrorsResponse() {
         this(null);
@@ -86,7 +91,7 @@ public class BindingErrorsResponse {
 		try {
 			errorsAsJSON = mapper.writeValueAsString(bindingErrors);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+            log.error("Failed to serialize binding errors to JSON", e);
 		}
 		return errorsAsJSON;
 	}
